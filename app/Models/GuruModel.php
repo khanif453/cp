@@ -4,27 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class GuruModel extends Model
 {
     public function allData(){
-        [
-            [
-                'nip'=> '1111',
-                'nama'=> 'Azam',
-                'mapel'=> 'Biologi'
-            ],
-            [
-                'nip'=> '2222',
-                'nama'=> 'Azam',
-                'mapel'=> 'Fisika'
-            ],
-            [
-                'nip'=> '3333',
-                'nama'=> 'Azam',
-                'mapel'=> 'Bahasa'
-            ],
-        ];
+        return DB::table('tbl_guru')->get();
     }
-    
 }
