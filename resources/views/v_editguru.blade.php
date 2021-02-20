@@ -1,34 +1,65 @@
 @extends('layout.v_template')
-@section('title', 'Detail Guru')
+@section('title', 'Edit Guru')
 
 @section('content')
-<table class="table">
-    <tr>
-        <th width="100px">NIP</th>
-        <th width="30px">:</th>
-        <th>{{ $guru->nip }}</th>
-    </tr>
-    
-    <tr>
-        <th width="100px">Nama</th>
-        <th width="30px">:</th>
-        <th>{{ $guru->nama_guru }}</th>
-    </tr>
-    
-    <tr>
-        <th width="100px">Mapel</th>
-        <th width="30px">:</th>
-        <th>{{ $guru->mapel }}</th>
-    </tr>
-    
-    <tr>
-        <th width="100px">Foto</th>
-        <th width="30px">:</th>
-        <th><img src="{{ url('foto_guru/'.$guru->foto_guru) }}" width="100px"></th>
-    </tr>
-    
-    <tr>
-    <th><a href="/guru" class="btn btn-success tbn-sm">Kembali</a></th>
-    </tr>
-    </table>
+
+<form action="/guru/update/{{ $guru->id_guru }}" method="post" enctype="multipart/form-data">
+        @csrf
+
+        <div class="content">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label>NIP</label>
+                        <input name="nip" class="form-control" value="{{ $guru->nip }}" readonly>
+                            <div class="text-danger">
+                                @error('nip')
+                                    {{ $message }}
+                                @enderror
+                            </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Nama Guru</label>
+                        <input name="nama_guru" class="form-control" value="{{ $guru->nama_guru }}">
+                            <div class="text-danger">
+                                @error('nama_guru')
+                                    {{ $message }}
+                                @enderror
+                            </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Mapel</label>
+                        <input name="mapel" class="form-control" value="{{ $guru->mapel }}">
+                            <div class="text-danger">
+                                @error('mapel')
+                                    {{ $message }}
+                                @enderror
+                            </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="col-sm-4">
+                        <img src="{{ url('foto_guru/'.$guru->foto_guru) }}" width="150px">
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="form-group">
+                                <label>Foto</label>
+                                    <input type="file" name="foto_guru" class="form-control" value="{{ $guru->foto_guru }}">
+                                        <div class="text-danger">
+                                            @error('foto_guru')
+                                                {{ $message }}
+                                            @enderror
+                                        </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <button class="btn btn-primary btn-sm">Add</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </form>
+
 @endsection
