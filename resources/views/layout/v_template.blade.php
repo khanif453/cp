@@ -35,6 +35,7 @@
 
   <header class="main-header">
     <!-- Logo -->
+    
     <a href="{{asset('template')}}/index2.html" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>A</b>LT</span>
@@ -53,15 +54,11 @@
 
       <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">
-          <!-- Messages: style can be found in dropdown.less-->
-          
-          <!-- Notifications: style can be found in dropdown.less -->
-          
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <img src="{{asset('template')}}/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
-              <span class="hidden-xs">Alexander Pierce</span>
+              <span class="hidden-xs">{{ Auth::user()->name }}</span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
@@ -69,7 +66,7 @@
                 <img src="{{asset('template')}}/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
 
                 <p>
-                  Alexander Pierce - Web Developer
+                {{ Auth::user()->name }} - Web Developer
                   <small>Member since Nov. 2012</small>
                 </p>
               </li>
@@ -94,7 +91,10 @@
                   <a href="#" class="btn btn-default btn-flat">Profile</a>
                 </div>
                 <div class="pull-right">
-                  <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                  @csrf
+                  <button type="submit" class="btn btn-default btn-flat">log out</button>
+                </form>
                 </div>
               </li>
             </ul>
@@ -118,8 +118,16 @@
           <img src="{{asset('template')}}/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
-          <p>Alexander Pierce</p>
-          <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+          <p>{{ Auth::user()->name }}</p>
+          <a href="#"><i class="fa fa-circle text-success"></i>
+            @if( auth()->user()->level==1)
+            Admin
+            @elseif( auth()->user()->level==2)
+            User
+            @elseif( auth()->user()->level==3)
+            Siswa
+            @endif
+          </a>
         </div>
       </div>
       <!-- search form -->
@@ -132,7 +140,7 @@
               </span>
         </div>
       </form>
-      <!-- /.search form -->
+      <!-- /.search form --> 
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">MAIN NAVIGATION</li>
@@ -153,6 +161,7 @@
         @yield('title')
       </h1>
       
+    </section>
 
     <!-- Main content -->
     <section class="content">
@@ -179,7 +188,7 @@
   <!-- /.control-sidebar -->
   <!-- Add the sidebar's background. This div must be placed
        immediately after the control sidebar -->
-  
+</div>
 <!-- ./wrapper -->
 
 <!-- jQuery 3 -->
